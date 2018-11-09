@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="./styles/loginRegister.css">
+  </head>
+  <body>
+    <header>
+      <span>
+        <h1> PhotoRates  </h1>
+      </span>
+    </header>
+    <nav>
+			<ul id="menu">
+				<li class="home">
+					Home
+				</li>
+				<li class="vote">
+					Vote
+				</li>
+				<li class="upload">
+					Upload
+				</li>
+				<li class="loginRegister selectedNavElement">
+					Login / Register
+				</li>
+				<li class="about">
+					About
+				</li>
+			</ul>
+		</nav>
+    <main>
+      <section>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <span><form>
+          <fieldset>
+            <legend> Login </legend>
+
+            <div class="ErrorMessage" id="ErrorLogin"></div>
+
+            Username
+            <br>
+						<span class="ErrorMessage" id="ErrorLogUsername"></span>
+						<br>
+            <input type="text" id="usernameL" class="formElement"/>
+            <br>
+            <br>
+
+            Password
+            <br>
+						<span class="ErrorMessage" id="ErrorLogPassword"></span>
+						<br>
+            <input type="password" id="passwordL" class="formElement"/>
+            <br>
+            <br>
+            <label>
+              <input type="checkbox" class="box" name="RememberMe" id="chbRememberMe"/>
+              Remember Me
+            </label>
+            <br>
+
+            <input type="submit" name="submitButton" value = "Login" id="btnSubmit"/>
+          </fieldset>
+        </form></span>
+      </section>
+      <section>
+        <br>
+        <span><form>
+          <fieldset>
+            <legend> Registration </legend>
+
+            First Name
+            <br>
+						<span class="ErrorMessage" id="ErrorRegFirstName"></span>
+						<br>
+            <input type="text" id="firstName" class="formElement"/>
+            <br>
+
+            <br>
+            Last Name
+            <br>
+            <span class="ErrorMessage" id="ErrorRegLastName"></span>
+						<br>
+            <input type="text" id="lastName" class="formElement"/>
+            <br>
+
+            <br>
+            Username
+            <br>
+            <span class="ErrorMessage" id="ErrorRegUsername"></span>
+						<br>
+            <input type="text" id=usernameR class="formElement"/>
+            <br>
+            <br>
+
+            Email
+            <br>
+            <span class="ErrorMessage" id="ErrorRegEmail"></span>
+						<br>
+            <input type="text" id="email" class="formElement"/>
+            <br>
+            <br>
+
+            Password
+            <br>
+            <span class="ErrorMessage" id="ErrorRegPassword"></span>
+						<br>
+            <input type="password" id=passwordR class="formElement"/>
+            <br>
+            <br>
+
+            Password confirmation
+            <br>
+            <span class="ErrorMessage" id="ErrorRegPasswordConf"></span>
+						<br>
+            <input type="password" id=passwordRconf class="formElement"/>
+
+            <br>
+            <br>
+            Country
+            <br>
+            <span class="ErrorMessage" id="ErrorRegCountry"></span>
+						<br>
+            <select id="country">
+              <option value="0">Select a Country</option>
+              <option value="MEX">Mexico</option>
+              <option value="COL">Colombia</option>
+              <option value="VEN">Venezuela</option>
+              <option value="AU">Australia</option>
+    	        <option value="AT">Austria</option>
+              <option value="BE">Belgium</option>
+    	        <option value="BZ">Belize</option>
+              <option value="CL">Chile</option>
+    	        <option value="CN">China</option>
+              <option value="CR">Costa Rica</option>
+    	        <option value="CI">Côte d'Ivoire</option>
+              <option value="EC">Ecuador</option>
+    	        <option value="EG">Egypt</option>
+    	        <option value="SV">El Salvador</option>
+              <option value="FR">France</option>
+            </select>
+            <br>
+
+            <br>
+            Gender
+            <br>
+            <span class="ErrorMessage" id="ErrorRegGender"></span>
+						<br>
+            <label>
+              <input type="radio" class="box" name="gender"/>
+              Masculine
+            </label>
+            <br>
+            <label>
+              <input type="radio" class="box" name="gender"/>
+              Feminine
+            </label>
+            <br>
+
+            <br>
+            <input type="submit" name="submitButton" value = "Register" id="btnRegister"/>
+            <input type="submit" name="clearButton" value = "Clear" id="btnClear"/>
+          </fieldset>
+        </form></span>
+      </section>
+    </main>
+    <footer>
+      <div>
+        <h3> Find and rate the best photos </h3>
+      </div>
+    </footer>
+    <script
+				src="https://code.jquery.com/jquery-3.3.1.js"
+				integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+				crossorigin="anonymous"></script>
+		<script type="text/javascript" src="./js/loginRegisterQuery.js"> </script>
+  </body>
+</html>
