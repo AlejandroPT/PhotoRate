@@ -3,6 +3,7 @@ $.ajax({
   url : './data/app.php',
   type : 'GET',
   data : jsonToSend,
+  ContentType : "application/json",
   dataType : 'json',
   success : function(data){
     $("#usernameL").val(data.username);

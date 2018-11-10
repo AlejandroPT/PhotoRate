@@ -29,7 +29,7 @@ function attemptLogin($uName, $uPassword){
     if ($result->num_rows > 0){
 
       while ($row = $result->fetch_assoc()){
-        $response = array("firstName" => $row["fName"], "lastname" => $row["lName"]);
+        $response = array("firstName" => $row["fName"], "lastName" => $row["lName"]);
       }
       $connection -> close();
       return array('status' => "SUCCESS", 'response' => $response);
