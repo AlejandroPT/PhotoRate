@@ -16,8 +16,7 @@ function connect(){
 }
 
 function attemptLogin($uName, $uPassword){
-  return array('status' => "SUCCESS");
-  //$connection = connect();
+  $connection = connect();
 
   if($connection != null){
 
@@ -68,7 +67,8 @@ function registerUser($userName, $userPassword, $userFirstName, $userLastName,
 
         if (mysqli_query($conn, $sql)){
           $conn-> close();
-          $response = array("status" => "SUCCESS");
+          $info = array("userName" => $userName, "fName" => $userFirstName, "lName" => $userLastName);
+          $response = array("status" => "SUCCESS", 'response' => $info);
           return $response;
         }
         else

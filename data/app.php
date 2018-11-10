@@ -35,8 +35,30 @@ function getRequests($action) {
       //requestProfile();
       break;
     case 'SESSION':
-      //retrieveSession();
+      retrieveSession();
       break;
+    case 'COOKIE':
+      cookie();
+      break;
+  }
+}
+
+function retrieveSession(){
+  session_start();
+
+  if (isset($_SESSION["firstName"])&&
+    isset($_SESSION["lastName"]) &&
+    isset($_SESSION["userName"]))
+  {
+    $response = array("fName" => $_SESSION["firstName"], "lName" => $_SESSION["lastName"], "uName" => $_SESSION["userName"]);
+
+    echo json_encode($response);
+  }
+  else
+  {
+    session_destroy();
+    header("HTTP/1.1 406 Session not set yet");
+    die("Your session has expired.");
   }
 }
 
@@ -51,6 +73,17 @@ function postRequests($action) {
   }
 }
 
+function cookie(){
+  if ( isset($_COOKIE["username"]) ){
+		$response = array("username" => $_COOKIE["username"]);
+		echo json_encode($response);
+	}
+	else{
+		header("HTTP/1.1 406 Cookie not set yet");
+		die("No cookies saved on this site");
+	}
+}
+
 function requestLogin(){
   $uName = $_GET["username"];
   $uPassword = $_GET["password"];
@@ -59,20 +92,20 @@ function requestLogin(){
 
 
   if ($response["status"] == "SUCCESS"){
-  //session_destroy();
+  session_destroy();
 
-  //session_start();
+  session_start();
 
-  //$_SESSION["firstName"] = $response['response']["fName"];
-  //$_SESSION["lastName"] = $response['response']["lName"];
-  //$_SESSION["userName"] = $uName;
+  $_SESSION["firstName"] = $response['response']["fName"];
+  $_SESSION["lastName"] = $response['response']["lName"];
+  $_SESSION["userName"] = $uName;
 
-  $response = array("firstName" => $response['response']["fName"], "lastname" => $response['response']["lName"]);
+  //$response = array("firstName" => $response['response']);
 
   if($_GET["rememberMe"] == "1"){
-  //  setcookie("username", $uName, time() + 3600*24*10, "/", "", 0);
+    setcookie("username", $uName, time() + 3600*24*10, "/", "", 0);
   }
-    echo json_encode($response["response"]);
+    echo json_encode($response);
   }
   else{
     errorHandler($response["status"], $response["code"]);

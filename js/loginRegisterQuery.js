@@ -1,3 +1,19 @@
+jsonToSend = {"action" : "COOKIE"};
+$.ajax({
+  url : './data/app.php',
+  type : 'GET',
+  data : jsonToSend,
+  dataType : 'json',
+  success : function(data){
+    $("#usernameL").val(data.username);
+    console.log(data.username);
+  },
+  error : function(errorMsg){
+    console.log("bye");
+    console.log(errorMsg);
+  }
+});
+
 $('#menu > li').on('click', function(event){
 
 	//$('.selectedNavElement').removeClass('selectedNavElement');
@@ -69,7 +85,8 @@ $('#btnSubmit').on('click',function(event){
   		ContentType : "application/json",
   		dataType : "json",
   		success : function(data){
-  			console.log(data);
+        console.log(data);
+  			//console.log(data["username"]);
   			//$(location).attr("href", "./index.html");
   		},
   		error : function(error){
