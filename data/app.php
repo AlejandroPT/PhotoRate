@@ -43,6 +43,17 @@ function getRequests($action) {
   }
 }
 
+function postRequests($action) {
+  switch ($action) {
+    case 'REGISTER':
+      requestRegistration();
+      break;
+    case 'UPLOAD':
+      postPhoto();
+      break;
+  }
+}
+
 function retrieveSession(){
   session_start();
 
@@ -63,17 +74,6 @@ function retrieveSession(){
 		header("HTTP/1.1 406 Session not set yet");
 		die("Your session has expired.");
 	}
-}
-
-function postRequests($action) {
-  switch ($action) {
-    case 'REGISTER':
-      requestRegistration();
-      break;
-    case 'COMMENT':
-      //postComment();
-      break;
-  }
 }
 
 function cookie(){
@@ -134,4 +134,17 @@ function requestRegistration(){
     errorHandler($response['status'], $response['code']);
   }
 }
+
+function postPhoto(){
+  // storePhoto($_POST["userName"], $_POST["tittle"], $target_file,
+  //           $_POST["cat1"],$_POST["cat2"],$_POST["cat2"]);
+  //
+  // if ($response['status'] == 'SUCCESS'){
+  //   echo json_encode($response['status']);
+  // }
+  // else{
+  //   errorHandler($response['status'], $response['code']);
+  // }
+}
+
 ?>

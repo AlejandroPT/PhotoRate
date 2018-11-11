@@ -1,4 +1,5 @@
 jsonToSend = {"action" : "SESSION"};
+userName = "";
 $.ajax({
 	url : "./data/app.php",
 	type : "GET",
@@ -6,6 +7,7 @@ $.ajax({
   ContentType : "application/json",
 	dataType : "json",
 	success : function(data){
+    userName = data.uName;
 		$('.userFullName').text(`${data.fName} ${data.lName}`);
     console.log(data);
 	},
@@ -30,12 +32,41 @@ $('#menu > li').on('click', function(event){
     $(location).attr("href", "./vote.html");
 
   if(sectionName == "upload")
-    $(location).attr("href", "./upload.html");
+    $(location).attr("href", "./data/upload.html");
 
   if(sectionName == "loginRegister")
     $(location).attr("href", "./loginRegister.html");
 
   if(sectionName == "about")
     $(location).attr("href", "./about.html");
+
+});
+
+$('#btnUpload').on('click', function(event){
+  jsonToSend = {
+    "action" : "UPLOAD",
+    "username" : userName,
+    "cat1" : "",
+    "cat2" : "",
+    "cat3" : "",
+    "tittle" : "test1"
+  }
+  // $.ajax({
+  // 	url : "./data/upload.php",
+  // 	type : "POST",
+  //   data : jsonToSend,
+  //   ContentType : "application/json",
+  // 	dataType : "json",
+  // 	success : function(data){
+  //     //userName = data.uName;
+  // 		//$('.userFullName').text(`${data.fName} ${data.lName}`);
+  //     console.log(data);
+  // 	},
+  // 	error : function(err){
+  // 		//alert(err.responseText);
+  //     console.log(err);
+  // 		//$(location).attr('href', './index.html');
+  // 	}
+  // });
 
 });
