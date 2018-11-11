@@ -22,32 +22,48 @@ $('#menu > li').on('click', function(event){
     $(location).attr("href", "./about.html");
 
 });
+function displayPhotos(){
+  $('#photos').empty();
+  jsonToSend = {"action" : "PHOTOS"};
+  $.ajax({
+    url : './data/app.php',
+    type : 'GET',
+    data : jsonToSend,
+    ContentType : "application/json",
+    dataType : 'json',
+    success : function(data){
+      let searchCat = $("#category option:selected").index();
+      console.log(searchCat);
+      for (let i = 0; i < data.length; i += 1) {
+        let current = data[i];
+        let author = `${current['username']}`;
+        let tittle = `${current['tittle']}`;
+        let loc = `${current['img']}`;
+        let cat1 = `${current['cat1']}`;
+        let cat2 = `${current['cat2']}`;
+        let cat3 = `${current['cat3']}`;
+        let correctLoc = loc.replace('..','.')
+        console.log(loc);
+        console.log(correctLoc);
 
-jsonToSend = {"action" : "PHOTOS"};
-$.ajax({
-  url : './data/app.php',
-  type : 'GET',
-  data : jsonToSend,
-  ContentType : "application/json",
-  dataType : 'json',
-  success : function(data){
-    for (let i = 0; i < data.length; i += 1) {
-      let current = data[i];
-      let author = `${current['username']}`;
-      let tittle = `${current['tittle']}`;
-      let loc = `${current['img']}`;
-      let correctLoc = loc.replace('..','.')
-      console.log(loc);
-      console.log(correctLoc);
-      let newHtml = '<div class="author">' + author + "</div>"
-                      +'<div class="tittle">'+ tittle + "</div>"
-                      + '<img src ="' + correctLoc + '"width=80%>';
-      $('#photos').append(newHtml);
-    };
-    console.log(data);
-  },
-  error : function(errorMsg){
-    console.log("bye");
-    console.log(errorMsg);
-  }
+        if (searchCat == "0" || searchCat == cat1 || searchCat == cat2 || searchCat == cat3){
+          let newHtml = '<div class="author">' + author + "</div>"
+                          +'<div class="tittle">'+ tittle + "</div>"
+                          + '<img src ="' + correctLoc + '"width=80%>';
+          $('#photos').append(newHtml);
+        }
+      };
+      console.log(data);
+    },
+    error : function(errorMsg){
+      console.log("bye");
+      console.log(errorMsg);
+    }
+  });
+}
+
+displayPhotos();
+
+$('select').on('change', function(event){
+  displayPhotos();
 });
