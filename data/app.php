@@ -17,8 +17,9 @@
       postRequests($action);
       break;
     case 'PUT':
-      parse_str(file_get_contents('php://input'), $putParams);
-      $action = $putParams['action'];
+      //parse_str(file_get_contents('php://input'), $putParams);
+      cookie();
+      //$action = $putParams['action'];
       //putRequests($action, $putParams);
       break;
   }
@@ -136,8 +137,13 @@ function requestRegistration(){
 }
 
 function postPhoto(){
-  // storePhoto($_POST["userName"], $_POST["tittle"], $target_file,
+
+
+  // $response = storePhoto($_POST["userName"], $_POST["tittle"],
   //           $_POST["cat1"],$_POST["cat2"],$_POST["cat2"]);
+  echo json_encode("success");
+  // require_once __DIR__ . '/upload.php';
+  // $response = array('status' => 'SUCCESS');
   //
   // if ($response['status'] == 'SUCCESS'){
   //   echo json_encode($response['status']);
