@@ -53,9 +53,9 @@ if ($uploadOk == 0) {
   $username = $_SESSION["userName"];
   echo "....." . $_SESSION["userName"] . "......";
   $tittle = $_POST["tittleName"];
-  $cat1 = "1";
-  $cat2 = "2";
-  $cat3 = "3";
+  $cat1 = $_POST["category1"];
+  $cat2 = $_POST["category2"];
+  $cat3 = $_POST["category3"];
 
   $conn = new mysqli($servername, $Susername, $password, $dbname);
 

@@ -41,7 +41,7 @@ $.ajax({
       console.log(correctLoc);
       let newHtml = '<div class="author">' + author + "</div>"
                       +'<div class="tittle">'+ tittle + "</div>"
-                      + '<img src ="' + correctLoc + '">';
+                      + '<img src ="' + correctLoc + '"width=80%>';
       $('#photos').append(newHtml);
     };
     console.log(data);
