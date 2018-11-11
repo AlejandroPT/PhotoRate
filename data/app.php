@@ -18,7 +18,7 @@
       break;
     case 'PUT':
       //parse_str(file_get_contents('php://input'), $putParams);
-      cookie();
+      //cookie();
       //$action = $putParams['action'];
       //putRequests($action, $putParams);
       break;
@@ -27,7 +27,7 @@
 function getRequests($action) {
   switch ($action) {
     case 'PHOTOS':
-      //requestComments1();
+      getPhotos();
       break;
     case 'LOGIN':
       requestLogin();
@@ -136,21 +136,50 @@ function requestRegistration(){
   }
 }
 
-function postPhoto(){
+function getPhotos(){
 
-
-  // $response = storePhoto($_POST["userName"], $_POST["tittle"],
-  //           $_POST["cat1"],$_POST["cat2"],$_POST["cat2"]);
-  echo json_encode("success");
-  // require_once __DIR__ . '/upload.php';
-  // $response = array('status' => 'SUCCESS');
-  //
-  // if ($response['status'] == 'SUCCESS'){
-  //   echo json_encode($response['status']);
+  // if ( isset($_COOKIE["username"]) ){
+  //   $response = array("username" => $_COOKIE["username"]);
+  //   echo json_encode($response);
   // }
   // else{
-  //   errorHandler($response['status'], $response['code']);
+  //   header("HTTP/1.1 406 Cookie not set yet");
+  //   die("No cookies saved on this site");
   // }
+
+  $response = retrievePhotos();
+  if ($response['status'] == 'SUCCESS'){
+    echo json_encode($response["images"]);
+  }
+  else{
+    errorHandler($response['status'], $response['code']);
+  }
 }
+
+function errorHandler($status, $code){
+		switch ($code)
+		{
+			case 406:
+        header("HTTP/1.1 $code User $status");
+				die("Wrong credentials provided");
+				break;
+			case 500:
+        header("HTTP/1.1 $code $status. Bad connection, portal is down");
+				die("The server is down, we couldn't retrieve data from the data base");
+				break;
+      case 124:
+        header("HTTP/1.1 $code $status ");
+				die("query error");
+				break;
+      case 124:
+        header("HTTP/1.1 $code $status ");
+				die("something error");
+				break;
+      default:
+        header("HTTP/1.1 Another error $status $code");
+				die("Sorry, unknown error $code.");
+				break;
+		}
+	}
 
 ?>

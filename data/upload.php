@@ -37,42 +37,13 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-      // if($_SERVER['REQUEST_METHOD'] == "POST"){
-      //   echo "........This is a post.......";
-      //   echo array_values($_POST);
-      //   echo "........end of post.......";
-      //   $test = array("hello" => "hola", "bye" => "adios");
-      //   echo array_values($test);
-      //   echo "end of test.........";
-      // }
-      //
-      // $userName = $_POST["userName"];
-      // $tittle = $_POST["tittle"];
-      // $cat1 = $_POST["cat1"];
-      // $cat2 = $_POST["cat2"];
-      // $cat3 = $_POST["cat3"];
-      //
-      //
-      // storePhoto($userName, $tittle, $target_file,
-      //           $cat1,$cat2,$cat3);
-      // //
-      // // if ($response['status'] == 'SUCCESS'){
-      // //   echo json_encode($response['status']);
-      // // }
-      // // else{
-      // //   errorHandler($response['status'], $response['code']);
-      // // }
-      // print "          hola            \n";
-      // echo $userName;
-      // echo $tittle;
-      // echo $target_file;
+
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     }
     else {
         echo "Sorry, there was an error uploading your file.";
     }
 }
-
 
   $servername = "localhost";
   $Susername = "root";
@@ -114,45 +85,5 @@ if ($uploadOk == 0) {
       //return array("status" => "INTERNAL_SERVER_ERROR", "code"=>500);
     }
   }
-
-
-// function storePhoto($username, $tittle, $cat1, $cat2, $cat3){
-//   $servername = "localhost";
-//   $Susername = "root";
-//   $password= "root";
-//   $dbname = "PhotoRateDB";
-//
-//   echo $username;
-//   echo $tittle;
-//   echo $loc;
-//   echo ".........";
-//
-//   $conn = new mysqli($servername, $Susername, $password, $dbname);
-//
-//   if ($conn->connect_error){
-//     return null;
-//   }
-//   else{
-//     if($conn != null){
-//
-//           $sql = "INSERT INTO Images (username, tittle, cat1, cat2, cat3, img)
-//                   VALUES ('$username', '$tittle', '$cat1', '$cat2', '$cat3', '$target_file')";
-//
-//           if (mysqli_query($conn, $sql)){
-//             $conn-> close();
-//             $response = array("status" => "SUCCESS");
-//             return $response;
-//           }
-//           else{
-//             $response = array("status" => mysqli_error($conn), "code" => 124);
-//             $conn-> close();
-//             return $response;
-//           }
-//       }
-//     else{
-//       return array("status" => "INTERNAL_SERVER_ERROR", "code"=>500);
-//     }
-//   }
-// }
 
 ?>

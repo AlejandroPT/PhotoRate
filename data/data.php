@@ -84,29 +84,33 @@ function registerUser($userName, $userPassword, $userFirstName, $userLastName,
   }
 }
 
-// function storePhoto($username, $tittle, $loc, $cat1, $cat2, $cat3){
-//   $conn = connect();
-//
-//   if($conn != null){
-//
-//         $sql = "INSERT INTO Images (username, tittle, cat1, cat2, cat3, img)
-//                 VALUES ('$username', '$tittle', '$loc', '$cat1', '$cat2', '$cat3')";
-//
-//         if (mysqli_query($conn, $sql)){
-//           $conn-> close();
-//           $response = array("status" => "SUCCESS");
-//           return $response;
-//         }
-//         else
-//         {
-//           $response = array("status" => mysqli_error($conn), "code" => 124);
-//           $conn-> close();
-//           return $response;
-//         }
-//     }
-//   else{
-//     return array("status" => "INTERNAL_SERVER_ERROR", "code"=>500);
-//   }
-// }
+function retrievePhotos(){
+  $conn = connect();
+
+  if($conn != null){
+    $sql =	"SELECT *
+             FROM Images";
+
+    $images = $conn->query($sql);
+
+    if($images->num_rows > 0){
+      $imgs = array();
+      while ($row = $images->fetch_assoc()){
+        array_push($imgs, $row);
+      }
+      $conn-> close();
+      $response = array("status" => "SUCCESS", "images"=>$imgs, "code" => 123);
+      return $response;
+    }
+    else{
+      $response = array("status" => mysqli_error($conn), "code" => 124);
+      $conn-> close();
+      return $response;
+    }
+  }
+  else{
+    return array("status" => "INTERNAL_SERVER_ERROR", "code"=>510);
+  }
+}
 
 ?>
