@@ -23,40 +23,110 @@ $('#menu > li').on('click', function(event){
 
 });
 
-jsonToSend = {"action" : "PHOTOS"};
-$.ajax({
-  url : './data/app.php',
-  type : 'GET',
-  data : jsonToSend,
-  ContentType : "application/json",
-  dataType : 'json',
-  success : function(data){
-    var index1 = Math.floor(Math.random() * data.length);
-    var index2 = Math.floor(Math.random() * data.length);
+let author1 = "";
+let author2 = "";
+let tittle1 = "";
+let tittle2 = "";
+let rating1 = 1400;
+let rating2 = 1400;
+let phtID1 = 0;
+let phtID2 = 0;
 
-    let pht1 = data[index1];
-    let pht2 = data[index2];
 
-    let author1 = `${pht1['username']}`;
-    let author2 = `${pht2['username']}`;
+function getImages(){
+  $('.author1').empty();
+  $('.author2').empty();
+  $('.tittle1').empty();
+  $('.titt2').empty();
+  jsonToSend = {"action" : "PHOTOS"};
+  $.ajax({
+    url : './data/app.php',
+    type : 'GET',
+    data : jsonToSend,
+    ContentType : "application/json",
+    dataType : 'json',
+    success : function(data){
+      var index1 = Math.floor(Math.random() * data.length);
+      var index2 = Math.floor(Math.random() * data.length);
 
-    let tittle1 = `${pht1['tittle']}`;
-    let tittle2 = `${pht2['tittle']}`;
+      let pht1 = data[index1];
+      let pht2 = data[index2];
 
-    let loc1 = `${pht1['img']}`;
-    let loc2 = `${pht2['img']}`;
+      author1 = `${pht1['username']}`;
+      author2 = `${pht2['username']}`;
 
-    let correctLoc1 = loc1.replace('..','.');
-    let correctLoc2 = loc2.replace('..','.');
-    let newHtml =
-      '<span class="author1">' + author1 + "</span>" +'<span class="author2">' + author2 + "</span>"
-      +'<br><span class="tittle1">'+ tittle1 + "</span>" +'<span class="tittle2">'+ tittle2 + "</span>"
-      + '<br><img src ="' + correctLoc1 + '" width=40% class="img1">' + '<img src ="' + correctLoc2 + '"width=40% class="img2">';
-    $('#photos').append(newHtml);
-    console.log(data);
-  },
-  error : function(errorMsg){
-    console.log("bye");
-    console.log(errorMsg);
-  }
+      tittle1 = `${pht1['tittle']}`;
+      tittle2 = `${pht2['tittle']}`;
+
+      phtID1 = `${pht1['photoID']}`;
+      phtID2 = `${pht2['photoID']}`;
+
+      let loc1 = `${pht1['img']}`;
+      let loc2 = `${pht2['img']}`;
+
+      let rating1 = `${pht1['rating']}`;
+      let rating2 = `${pht2['rating']}`;
+
+      let correctLoc1 = loc1.replace('..','.');
+      let correctLoc2 = loc2.replace('..','.');
+
+      $('.author1').append('Author: ' + author1);
+      $('.author2').append('Author: ' + author2);
+      $('.tittle1').append('Tittle: ' + tittle1);
+      $('.titt2').append('Tittle: ' + tittle2);
+      $('.img1').attr('src',correctLoc1);
+      $('.img2').attr('src',correctLoc2);
+
+      console.log(data);
+    },
+    error : function(errorMsg){
+      console.log("bye");
+      console.log(errorMsg);
+    }
+  });
+}
+getImages();
+$('.img1').on('click', function(event){
+  console.log(author1);
+  getImages();
+
+  let Rtng1 = 10^(rating1/400);
+  let Rtng2 = 10^(rating2/400);
+
+  let Kcoef = 32;
+
+  let expWin1 = Rtng1/(Rtng1+Rtng2);
+  let expWin2 = Rtng2/(Rtng1+Rtng2);
+
+  let newRating1 = rating1 + Kcoef*(1-expWin1);
+  let newRating2 = rating1 + Kcoef*(0-expWin2);
+
+  console.log(phtID1);
+  console.log(newRating1);
+  console.log(phtID2);
+  console.log(newRating2);
+
+  jsonToSend = {'action' : "VOTE",
+                'ID1' : phtID1,
+                'ID2' : phtID2,
+                'rating1':newRating1,
+                'rating2':newRating2
+              };
+  $.ajax({
+    url : "./data/app.php",
+    type : "POST",
+    data : jsonToSend,
+    ContentType : "application/json",
+    dataType : "json",
+    success : function(data){
+      console.log(data);
+      //$(location).attr("href", "./index.html");
+      //window.location.href = "../home/index.html";
+    },
+    error : function(error){
+      console.log(error);
+      console.log("bye");
+    }
+  });
+
 });

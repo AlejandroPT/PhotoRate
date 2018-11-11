@@ -113,4 +113,37 @@ function retrievePhotos(){
   }
 }
 
+
+function updateRatings($id1, $id2, $rating1, $rating2){
+  $conn = connect();
+
+  if($conn != null){
+    $sql = "UPDATE Images
+            SET rating = '$rating1'
+            WHERE photoID = '$id1'";
+
+    if (mysqli_query($conn, $sql)){
+      $sql = "UPDATE Images
+              SET rating = '$rating2'
+              WHERE photoID = '$id2'";
+      if (mysqli_query($conn, $sql)){
+        $response = array("status" => "SUCCESS");
+        return $response;
+      }
+      else {
+        $response = array("status" => mysqli_error($conn), "code" => 124);
+        $conn-> close();
+        return $response;
+      }
+    }
+    else {
+      $response = array("status" => mysqli_error($conn), "code" => 124);
+      $conn-> close();
+      return $response;
+    }
+  }
+  else{
+    return array("status" => "INTERNAL_SERVER_ERROR", "code"=>500);
+  }
+}
 ?>

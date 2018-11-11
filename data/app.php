@@ -52,6 +52,9 @@ function postRequests($action) {
     case 'UPLOAD':
       postPhoto();
       break;
+    case 'VOTE':
+      vote();
+      break;
   }
 }
 
@@ -181,5 +184,22 @@ function errorHandler($status, $code){
 				break;
 		}
 	}
+
+function vote(){
+  $id1 = $_POST['ID1'];
+  $id2 = $_POST['ID2'];
+  $rating1 = $_POST['rating1'];
+  $rating2 = $_POST['rating2'];
+
+
+  $response = updateRatings($id1, $id2, $rating1, $rating2);
+
+  if ($response['status'] == 'SUCCESS'){
+    echo json_encode($response['status']);
+  }
+  else{
+    errorHandler($response['status'], $response['code']);
+  }
+}
 
 ?>
