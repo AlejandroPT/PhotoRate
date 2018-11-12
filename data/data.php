@@ -172,5 +172,33 @@ function markLiked($username, $id){
   }
 }
 
+function retrieveLiked($username){
+  $conn = connect();
 
+  if($conn != null){
+    $sql =	"SELECT photoID
+             FROM Likes
+             WHERE username = '$username'";
+
+    $images = $conn->query($sql);
+
+    if($images->num_rows > 0){
+      $likedIDs = array();
+      while ($row = $images->fetch_assoc()){
+        array_push($likedIDs, $row);
+      }
+      $conn-> close();
+      $response = array("status" => "SUCCESS", "images"=>$likedIDs, "code" => 123);
+      return $response;
+    }
+    else{
+      $response = array("status" => "EMPTY", "code" => 125);
+      $conn-> close();
+      return $response;
+    }
+  }
+  else{
+    return array("status" => "INTERNAL_SERVER_ERROR", "code"=>510);
+  }
+}
 ?>

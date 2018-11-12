@@ -34,8 +34,8 @@ function getRequests($action) {
     case 'LOGIN':
       requestLogin();
       break;
-    case 'PROFILE':
-      //requestProfile();
+    case 'LIKED':
+      getLiked();
       break;
     case 'SESSION':
       retrieveSession();
@@ -175,9 +175,9 @@ function errorHandler($status, $code){
 				break;
       case 124:
         header("HTTP/1.1 $code $status ");
-				die("query error");
+				die("query error2 $status");
 				break;
-      case 124:
+      case 125:
         header("HTTP/1.1 $code $status ");
 				die("something error");
 				break;
@@ -218,4 +218,21 @@ function like(){
     errorHandler($response['status'], $response['code']);
   }
 }
+
+function getLiked(){
+  $username = $_GET['username'];
+
+  $response = retrieveLiked($username);
+
+  if ($response['status'] == 'SUCCESS'){
+    echo json_encode($response['images']);
+  }
+  else if($response['status'] == 'EMPTY'){
+    echo json_encode($response['status']);
+  }
+  else{
+    errorHandler($response['status'], $response['code']);
+  }
+}
+
 ?>
