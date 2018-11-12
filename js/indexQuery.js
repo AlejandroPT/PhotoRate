@@ -24,7 +24,8 @@ $('#menu > li').on('click', function(event){
 });
 
 let photos = "";
-
+let searchUN = "";
+let search = 0;
 
 jsonToSend = {"action" : "PHOTOS"};
 $.ajax({
@@ -99,12 +100,14 @@ function displayPhotos(){
                 //console.log(idStr);
                 if(find(id, likedIDs)){
                   console.log(idStr, likedIDs);
-                  let newHtml = '<div class="author">' + author + "</div>"
-                                  +'<div class="tittle">'+ tittle + "</div>"
-                                  +'<div class="rating"> Rating: '+ rating + "</div>"
-                                  + '<img src ="' + correctLoc + '"width=80%><br>'
-                                  + '<input type="submit" name="likebtn" class="like" value="LIKE" id="like' + id + '"/><br><br>';
-                  $('#photos').append(newHtml);
+                  if(search == 0 || searchUN == author){
+                    let newHtml = '<div class="author">' + author + "</div>"
+                                    +'<div class="tittle">'+ tittle + "</div>"
+                                    +'<div class="rating"> Rating: '+ rating + "</div>"
+                                    + '<img src ="' + correctLoc + '"width=80%><br>'
+                                    + '<input type="submit" name="likebtn" class="like" value="LIKE" id="like' + id + '"/><br><br>';
+                    $('#photos').append(newHtml);
+                }
                 }
               }
             };
@@ -142,12 +145,14 @@ function displayPhotos(){
 
     }
     else if (searchCat == "0" || searchCat == cat1 || searchCat == cat2 || searchCat == cat3){
-      let newHtml = '<div class="author">' + author + "</div>"
-                      +'<div class="tittle">'+ tittle + "</div>"
-                      +'<div class="rating"> Rating: '+ rating + "</div>"
-                      + '<img src ="' + correctLoc + '"width=80%><br>'
-                      + '<input type="submit" name="likebtn" class="like" value="LIKE" id="like' + id + '"/><br><br>';
-      $('#photos').append(newHtml);
+      if(search == 0 || searchUN == author){
+        let newHtml = '<div class="author">' + author + "</div>"
+                        +'<div class="tittle">'+ tittle + "</div>"
+                        +'<div class="rating"> Rating: '+ rating + "</div>"
+                        + '<img src ="' + correctLoc + '"width=80%><br>'
+                        + '<input type="submit" name="likebtn" class="like" value="LIKE" id="like' + id + '"/><br><br>';
+        $('#photos').append(newHtml);
+      }
     }
   };
       //console.log(photos);
@@ -211,3 +216,15 @@ function find(value, arr){
   }
   return 0;
 }
+
+$('#btnSearch').on('click', function(event){
+  if($('#searchUName').val() != ""){
+    searchUN = $('#searchUName').val();
+    search = 1;
+  }
+  else {
+    search = 0;
+    searchUN ="";
+  }
+  displayPhotos();
+});
