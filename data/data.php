@@ -113,7 +113,6 @@ function retrievePhotos(){
   }
 }
 
-
 function updateRatings($id1, $id2, $rating1, $rating2){
   $conn = connect();
 
@@ -146,4 +145,32 @@ function updateRatings($id1, $id2, $rating1, $rating2){
     return array("status" => "INTERNAL_SERVER_ERROR", "code"=>500);
   }
 }
+
+function markLiked($username, $id){
+
+  $conn = connect();
+
+  if($conn != null){
+    $sql = "INSERT INTO Likes (username, photoID)
+            VALUES ('$username', '$id')";
+
+    if (mysqli_query($conn, $sql)){
+      $conn-> close();
+      $response = array("status" => "SUCCESS");
+      return $response;
+    }
+    else
+    {
+      $response = array("status" => mysqli_error($conn), "code" => 124);
+      $conn-> close();
+      return $response;
+    }
+
+  }
+  else{
+    return array("status" => "INTERNAL_SERVER_ERROR", "code"=>500);
+  }
+}
+
+
 ?>

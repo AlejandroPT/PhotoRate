@@ -1,5 +1,5 @@
 let jsonToSend = {"action" : "SESSION"};
-let userName = "perro";
+let userName = "";
 $.ajax({
 	url : "./data/app.php",
 	type : "GET",
@@ -15,7 +15,7 @@ $.ajax({
 	error : function(err){
 		//alert(err.responseText);
     console.log(err);
-		//$(location).attr('href', './index.html');
+		$(location).attr('href', './loginRegister.html');
 	}
 });
 

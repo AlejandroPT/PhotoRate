@@ -1,6 +1,24 @@
-$('#menu > li').on('click', function(event){
+let jsonToSend = {"action" : "SESSION"};
+$.ajax({
+	url : "./data/app.php",
+	type : "GET",
+  data : jsonToSend,
+  ContentType : "application/json",
+	dataType : "json",
+	success : function(data){
+    userName = data.uName;
+    //userName = "HELLO";
+		$('.userFullName').text(`${data.fName} ${data.lName}`);
+    console.log(data);
+	},
+	error : function(err){
+		//alert(err.responseText);
+    console.log(err);
+		$(location).attr('href', './loginRegister.html');
+	}
+});
 
-	//$('.selectedNavElement').removeClass('selectedNavElement');
+$('#menu > li').on('click', function(event){
 
 	let currentElement = $(this);
 	let sectionName = currentElement.attr('class');
@@ -19,8 +37,6 @@ $('#menu > li').on('click', function(event){
 
   if(sectionName == "about")
     $(location).attr("href", "./about.html");
-
-
 });
 
 let author1 = "";
@@ -59,7 +75,7 @@ function getImages(){
       tittle2 = `${pht2['tittle']}`;
 
       phtID1 = `${pht1['photoID']}`;
-      phtID2 = `${pht2['photoID']}`;
+      phtID1 = `${pht2['photoID']}`;
 
       let loc1 = `${pht1['img']}`;
       let loc2 = `${pht2['img']}`;
@@ -85,7 +101,9 @@ function getImages(){
     }
   });
 }
+
 getImages();
+
 $('.img1').on('click', function(event){
   console.log(author1);
   getImages();
@@ -100,6 +118,51 @@ $('.img1').on('click', function(event){
 
   let newRating1 = rating1 + Kcoef*(1-expWin1);
   let newRating2 = rating1 + Kcoef*(0-expWin2);
+
+  console.log(phtID1);
+  console.log(newRating1);
+  console.log(phtID2);
+  console.log(newRating2);
+
+  jsonToSend = {'action' : "VOTE",
+                'ID1' : phtID1,
+                'ID2' : phtID2,
+                'rating1':newRating1,
+                'rating2':newRating2
+              };
+  $.ajax({
+    url : "./data/app.php",
+    type : "POST",
+    data : jsonToSend,
+    ContentType : "application/json",
+    dataType : "json",
+    success : function(data){
+      console.log(data);
+      //$(location).attr("href", "./index.html");
+      //window.location.href = "../home/index.html";
+    },
+    error : function(error){
+      console.log(error);
+      console.log("bye");
+    }
+  });
+
+});
+
+$('.img2').on('click', function(event){
+  console.log(author1);
+  getImages();
+
+  let Rtng1 = 10^(rating1/400);
+  let Rtng2 = 10^(rating2/400);
+
+  let Kcoef = 32;
+
+  let expWin1 = Rtng1/(Rtng1+Rtng2);
+  let expWin2 = Rtng2/(Rtng1+Rtng2);
+
+  let newRating1 = rating1 + Kcoef*(0-expWin1);
+  let newRating2 = rating1 + Kcoef*(1-expWin2);
 
   console.log(phtID1);
   console.log(newRating1);

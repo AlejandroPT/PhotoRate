@@ -86,4 +86,5 @@ if ($uploadOk == 0) {
     }
   }
 
+header("Refresh: 3; url=../upload.html");
 ?>

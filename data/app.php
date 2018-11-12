@@ -17,6 +17,8 @@
       postRequests($action);
       break;
     case 'PUT':
+      $action = $_POST['action'];
+      putRequests($action);
       //parse_str(file_get_contents('php://input'), $putParams);
       //cookie();
       //$action = $putParams['action'];
@@ -54,6 +56,17 @@ function postRequests($action) {
       break;
     case 'VOTE':
       vote();
+      break;
+    case 'LIKE':
+      like();
+      break;
+  }
+}
+
+function putRequests($action) {
+  switch ($action) {
+    case 'LIKE':
+      like();
       break;
   }
 }
@@ -140,16 +153,6 @@ function requestRegistration(){
 }
 
 function getPhotos(){
-
-  // if ( isset($_COOKIE["username"]) ){
-  //   $response = array("username" => $_COOKIE["username"]);
-  //   echo json_encode($response);
-  // }
-  // else{
-  //   header("HTTP/1.1 406 Cookie not set yet");
-  //   die("No cookies saved on this site");
-  // }
-
   $response = retrievePhotos();
   if ($response['status'] == 'SUCCESS'){
     echo json_encode($response["images"]);
@@ -202,4 +205,17 @@ function vote(){
   }
 }
 
+function like(){
+  $username = $_POST['username'];
+  $photoID = $_POST['id'];
+
+  $response = markLiked($username, $photoID);
+
+  if ($response['status'] == 'SUCCESS'){
+    echo json_encode($response['status']);
+  }
+  else{
+    errorHandler($response['status'], $response['code']);
+  }
+}
 ?>
