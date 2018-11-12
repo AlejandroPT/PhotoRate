@@ -88,7 +88,7 @@ $('#btnSubmit').on('click',function(event){
   		success : function(data){
         console.log(data);
   			//console.log(data["username"]);
-  			//$(location).attr("href", "./index.html");
+  			$(location).attr("href", "./index.html");
   		},
   		error : function(error){
     		ErrorLogin.text("Invalid user and/or password \n");
@@ -217,7 +217,7 @@ $('#btnRegister').on("click", function(event){
   		dataType : "json",
   		success : function(data){
   			console.log(data);
-  			//$(location).attr("href", "./index.html");
+  			$(location).attr("href", "./index.html");
         //window.location.href = "../home/index.html";
   		},
   		error : function(error){

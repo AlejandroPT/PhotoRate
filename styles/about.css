@@ -26,6 +26,11 @@ nav{
   display:
 }
 
+p{
+  margin:50px;
+  padding:0;
+}
+
 fieldset{
   margin: 20px;
   padding: 20px;

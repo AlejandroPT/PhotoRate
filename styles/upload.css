@@ -100,3 +100,23 @@ h3 {
 .hideElement{
     display : none;
 }
+
+select{
+  margin:0px 10px 10px 40px;
+  padding:0px;
+}
+
+p{
+  margin-left:40px;
+  margin-bottom:0px;
+  padding:0px;
+}
+
+#tittleID{
+  margin:0px 10px 10px 40px;
+}
+
+#fileToUpload{
+  margin:0px 10px 10px 40px;
+
+}
