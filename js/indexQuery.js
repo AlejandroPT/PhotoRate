@@ -51,7 +51,7 @@ function displayPhotos(){
   let empty = 0;
   $('#photos').empty();
   let searchCat = $("#category option:selected").index();
-  if(searchCat == "1"){
+  if(searchCat == "10"){
     let userName="";
     let jsonToSend = {"action" : "SESSION"};
     $.ajax({
@@ -91,9 +91,9 @@ function displayPhotos(){
               let cat3 = `${current['cat3']}`;
               let id = `${current['photoID']}`;
               let correctLoc = loc.replace('..','.')
-              //console.log(searchCat);
-              if(searchCat == "1"){
-                //console.log(likedIDs);
+              console.log(searchCat);
+              if(searchCat == "10"){
+                console.log(likedIDs);
                 //console.log(id);
                 let idStr = '"'+id + '"';
                 //console.log(idStr);
@@ -101,7 +101,7 @@ function displayPhotos(){
                   console.log(idStr, likedIDs);
                   let newHtml = '<div class="author">' + author + "</div>"
                                   +'<div class="tittle">'+ tittle + "</div>"
-                                  +'<div class="tittle"> Rating: '+ rating + "</div>"
+                                  +'<div class="rating"> Rating: '+ rating + "</div>"
                                   + '<img src ="' + correctLoc + '"width=80%><br>'
                                   + '<input type="submit" name="likebtn" class="like" value="LIKE" id="like' + id + '"/><br><br>';
                   $('#photos').append(newHtml);
@@ -138,13 +138,13 @@ function displayPhotos(){
     let id = `${current['photoID']}`;
     let correctLoc = loc.replace('..','.')
     //console.log(searchCat);
-    if(searchCat == "1"){
+    if(searchCat == "10"){
 
     }
     else if (searchCat == "0" || searchCat == cat1 || searchCat == cat2 || searchCat == cat3){
       let newHtml = '<div class="author">' + author + "</div>"
                       +'<div class="tittle">'+ tittle + "</div>"
-                      +'<div class="tittle"> Rating: '+ rating + "</div>"
+                      +'<div class="rating"> Rating: '+ rating + "</div>"
                       + '<img src ="' + correctLoc + '"width=80%><br>'
                       + '<input type="submit" name="likebtn" class="like" value="LIKE" id="like' + id + '"/><br><br>';
       $('#photos').append(newHtml);

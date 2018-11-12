@@ -64,6 +64,9 @@ function getImages(){
     success : function(data){
       var index1 = Math.floor(Math.random() * data.length);
       var index2 = Math.floor(Math.random() * data.length);
+      while(index1 == index2){
+        index2 = Math.floor(Math.random() * data.length);
+      }
 
       let pht1 = data[index1];
       let pht2 = data[index2];
@@ -89,7 +92,7 @@ function getImages(){
       $('.author1').append('Author: ' + author1);
       $('.author2').append('Author: ' + author2);
       $('.tittle1').append('Tittle: ' + tittle1);
-      $('.titt2').append('Tittle: ' + tittle2);
+      $('.tittle2').append('Tittle: ' + tittle2);
       $('.img1').attr('src',correctLoc1);
       $('.img2').attr('src',correctLoc2);
 
