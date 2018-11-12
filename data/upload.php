@@ -86,5 +86,5 @@ if ($uploadOk == 0) {
     }
   }
 
-header("Refresh: 3; url=../upload.html");
+header("Refresh: 1; url=../upload.html");
 ?>
